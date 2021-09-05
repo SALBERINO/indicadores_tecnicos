@@ -32,3 +32,9 @@ def indicador_tipo_de_vela(data):
   df = data . copy()
   df["vela"] = np.where(df.Open < df.Close, "verde", np.where(df.Open == df.Close, "doji", "roja"))
   return df
+
+def devolver_top_n_variacion(data, n=10, es_de_baja=True):
+  df = data . copy() 
+  df["variacion"]  = df["Close"].pct_change() * 100 
+  df.dropna(inplace=True)
+  return df.sort_values("variacion", ascending = es_de_baja ).head(n)

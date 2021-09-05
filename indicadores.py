@@ -22,3 +22,13 @@ def indicador_gap_basico(data):
   df_menosuno['tendencia'] = np.where(df_menosuno['Close'] > df_menosdos['Close'],'alsista','bajista')
   df['gap'] = np.where((df_menosuno['tendencia'] == 'alsista') & (df['Open'] > df_menosuno['High']) & (df['Close'] > df['Open']), 'gap alsista', np.where((df_menosuno['tendencia'] == 'bajista)') & (df['Open'] < df_menosuno['Low']) & (df['Close'] < df['Open']),'gap bajista', 'sin gap'))
   return df
+
+def indicador_tipo_de_vela(data):
+  import numpy as np
+  """ 
+    Esta funcion recibe una matriz de datos, que posee la serie historica con los valores encolumnados por
+    Open, High, Low, Close
+  """
+  df = data . copy()
+  df["vela"] = np.where(df.Open < df.Close, "verde", np.where(df.Open == df.Close, "doji", "roja"))
+  return df

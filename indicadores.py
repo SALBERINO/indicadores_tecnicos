@@ -1,12 +1,20 @@
-def devolver_con_percentil(df):
-  data = df . copy()
-  data["variacion"]  = data["Close"].pct_change() * 100 
-  data.dropna(inplace=True)
-  data["rank_variacion"] = data["variacion"].rank()
-  data["rank_variacion_pct"] = data["variacion"].rank(pct= True)
-  return data
+def devolver_con_percentil(data):
+  """ 
+    Esta funcion recibe una matriz de datos, que posee la serie historica con los valores encolumnados por
+    Open, High, Low, Close
+  """
+  df = data . copy()
+  df["variacion"]  = df["Close"].pct_change() * 100 
+  df.dropna(inplace=True)
+  df["rank_variacion"] = df["variacion"].rank()
+  df["rank_variacion_pct"] = df["variacion"].rank(pct= True)
+  return df
 
 def indicador_gap_basico(data):
+  """ 
+    Esta funcion recibe una matriz de datos, que posee la serie historica con los valores encolumnados por
+    Open, High, Low, Close
+  """
   import numpy as np
   df = data.copy()
   df_menosuno = data.copy().shift(1)
